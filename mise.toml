@@ -5,7 +5,7 @@ deno = "latest"
 run = "deno fmt --check"
 
 [tasks.lint]
-run = ["deno lint", "deno doc --lint src"]
+run = ["deno lint", "deno doc --lint mod.ts"]
 
 [tasks.ci]
 depends = ["fmt", "lint"]
