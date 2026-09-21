@@ -99,8 +99,8 @@ export type Brand<in out T extends PropertyKey> = {
  *
  * The brand only exists at the type level; the runtime value is untouched.
  *
- * @typeParam Source - The underlying value type.
- * @typeParam Tags - Union of tags permitted to access the value.
+ * @template Source - The underlying value type.
+ * @template Tags - Union of tags permitted to access the value.
  */
 export type Tagged<Source, Tags extends PropertyKey> = Source & Brand<Tags>;
 
@@ -109,7 +109,7 @@ export type Tagged<Source, Tags extends PropertyKey> = Source & Brand<Tags>;
  *
  * Non-tagged types are returned unchanged.
  *
- * @typeParam T - A possibly tagged type.
+ * @template T - A possibly tagged type.
  */
 export type Untagged<T> = T extends Tagged<infer M, infer _> ? M : T;
 
@@ -117,8 +117,8 @@ export type Untagged<T> = T extends Tagged<infer M, infer _> ? M : T;
  * Keys of `Source` visible to `Tags`: every untagged key, plus tagged keys
  * whose brand includes `Tags`.
  *
- * @typeParam Source - The object type being inspected.
- * @typeParam Tags - Union of tags held by the accessor.
+ * @template Source - The object type being inspected.
+ * @template Tags - Union of tags held by the accessor.
  */
 export type VisibleTagKeys<Source, Tags extends PropertyKey> = {
   [K in keyof Source]: Source[K] extends Tagged<infer _, infer Members>
@@ -130,8 +130,8 @@ export type VisibleTagKeys<Source, Tags extends PropertyKey> = {
 /**
  * Keys of `Source` explicitly tagged for `Tags`. Untagged keys are excluded.
  *
- * @typeParam Source - The object type being inspected.
- * @typeParam Tags - Union of tags held by the accessor.
+ * @template Source - The object type being inspected.
+ * @template Tags - Union of tags held by the accessor.
  */
 export type TaggedKeys<Source, Tags extends PropertyKey> = {
   [K in keyof Source]: Source[K] extends Tagged<infer _, infer Members>
@@ -143,8 +143,8 @@ export type TaggedKeys<Source, Tags extends PropertyKey> = {
 /**
  * `Source` narrowed to the members visible to `Tags`.
  *
- * @typeParam Source - The object type being viewed.
- * @typeParam Tags - Union of tags held by the viewer.
+ * @template Source - The object type being viewed.
+ * @template Tags - Union of tags held by the viewer.
  */
 export type View<Source, Tags extends PropertyKey> = Pick<
   Source,
@@ -165,7 +165,7 @@ function identity(value: unknown): unknown {
  * Note: If you prefer to have no runtime impact at all, use
  * `as Tagged<Source, Tags>` instead of this helper function.
  *
- * @typeParam Tags - Union of tags permitted to access the value.
+ * @template Tags - Union of tags permitted to access the value.
  * @returns A function branding its argument as {@link Tagged}.
  *
  * @example
@@ -190,7 +190,7 @@ export function tags<Tags extends PropertyKey>(): <Source>(
  * Note: If you prefer to have no runtime impact at all, use
  * `as View<Source, Tags>` instead of this helper function.
  *
- * @typeParam Tags - Union of tags held by the viewer.
+ * @template Tags - Union of tags held by the viewer.
  * @returns A function returning its argument typed as {@link View}.
  *
  * @example
@@ -213,7 +213,7 @@ export function view<Tags extends PropertyKey>(): <Source>(
  * Note: If you prefer to have no runtime impact at all, use
  * `as Pick<Source, TaggedKeys<Source, Tags>>` instead of this helper function.
  *
- * @typeParam Tags - Union of tags held by the accessor.
+ * @template Tags - Union of tags held by the accessor.
  * @returns A function returning its argument picked down to {@link TaggedKeys}.
  *
  * @example
