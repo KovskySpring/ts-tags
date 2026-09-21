@@ -1,7 +1,7 @@
 {
   "name": "@tinymirror/ts-tags",
   "version": "0.1.0",
-  "license": "MIT",
+  "license": "Apache-2.0",
   "exports": "./mod.ts",
   "tasks": {
     "dev": "deno run --watch --allow-net mod.ts"
