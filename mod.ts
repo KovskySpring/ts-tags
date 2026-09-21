@@ -114,6 +114,16 @@ export type Tagged<Source, Tags extends PropertyKey> = Source & Brand<Tags>;
 export type Untagged<T> = T extends Tagged<infer M, infer _> ? M : T;
 
 /**
+ * Removes the tag brand from every member of `T`, yielding an object type with
+ * the same keys but untagged values.
+ *
+ * @template T - An object type whose members may be tagged.
+ */
+export type UntaggedMembers<T> = {
+  [K in keyof T]: T[K] extends Tagged<infer M, infer _> ? M : T[K];
+};
+
+/**
  * Keys of `Source` visible to `Tags`: every untagged key, plus tagged keys
  * whose brand includes `Tags`.
  *
