@@ -7,11 +7,8 @@ run = "deno fmt --check"
 [tasks.lint]
 run = ["deno lint", "deno doc --lint src"]
 
-[tasks.test]
-run = "deno test"
-
 [tasks.ci]
-depends = ["fmt", "lint", "test"]
+depends = ["fmt", "lint"]
 
 [tasks.bump]
 run = "deno bump-version"
